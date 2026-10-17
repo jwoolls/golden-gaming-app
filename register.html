@@ -1,1 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Golden Gaming | Register</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #101010;
+      color: #f6f0df;
+      font-family: Arial, sans-serif;
+    }
+    main {
+      max-width: 440px;
+      margin: 45px auto;
+      padding: 25px;
+    }
+    h1 {
+      color: #e8c879;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    .tagline {
+      color: #c7a967;
+      text-align: center;
+      letter-spacing: 3px;
+    }
+    .panel {
+      margin-top: 30px;
+      padding: 25px;
+      border: 1px solid #8e743b;
+      border-radius: 16px;
+      background: #1b1b1b;
+    }
+    h2 { font-size: 23px; }
+    .welcome {
+      color: #e8c879;
+      font-size: 26px;
+      font-weight: bold;
+      text-align: center;
+    }
+    label { display: block; margin: 17px 0 7px; }
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #9e8551;
+      border-radius: 8px;
+      font-size: 17px;
+      background: #282828;
+      color: white;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 16px;
+      background: #e8c879;
+      color: #111;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .5; cursor: wait; }
+    .small { color: #aaa; font-size: 12px; line-height: 1.6; }
+    #message { margin-top: 16px; line-height: 1.5; }
+    #verifySection { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>GOLDEN GAMING</h1>
+    <div class="tagline">LOYALTY PAYS</div>
 
+    <section class="panel">
+      <div class="welcome">500 WELCOME POINTS</div>
+      <p style="text-align:center">
+        Register today and start enjoying
+        exclusive Golden Gaming rewards.
+      </p>
+
+      <div id="registerSection">
+        <h2>Create your membership</h2>
+
+        <label for="firstName">First name</label>
+        <input id="firstName" autocomplete="given-name">
+
+        <label for="surname">Surname (optional)</label>
+        <input id="surname" autocomplete="family-name">
+
+        <label for="phone">Mobile phone number</label>
+        <input id="phone" type="tel"
+               placeholder="07XXXXXXXXX"
+               autocomplete="tel">
+
+        <button id="sendButton" onclick="sendCode()">
+          Send verification code
+        </button>
+      </div>
+
+      <div id="verifySection">
+        <h2>Verify your mobile</h2>
+        <p>Enter the six-digit code sent to your phone.</p>
+        <input id="otp" inputmode="numeric"
+               maxlength="6" placeholder="6-digit code">
+
+        <button id="verifyButton" onclick="verifyCode()">
+          Verify and continue
+        </button>
+      </div>
+
+      <div id="message" role="status"></div>
+
+      <p class="small">
+        For adults aged 18+ only.
+        Membership and rewards are subject
+        to eligibility checks and terms.
+        Welcome points are not credited
+        until the membership system is activated.
+      </p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Replace these two values with your Supabase details.
+    const SUPABASE_URL = "NEXT_PUBLIC_SUPABASE_URL=https://ujytgyrrwqtixwlozzyr.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_JYGd9_FfX4Dyh9za_oXVUg_UcmqDioz";
+    const SUPABASE_KEY = "sb_publishable_JYGd9_FfX4Dyh9za_oXVUg_UcmqDioz";
+
+    const client = window.supabase.createClient(
+      SUPABASE_URL, SUPABASE_KEY
+    );
+
+    let pendingPhone = "";
+
+    function normalisePhone(value) {
+      const cleaned = value.replace(/\s+/g, "");
+      if (/^07\d{9}$/.test(cleaned)) {
+        return "+44" + cleaned.slice(1);
+      }
+      if (/^\+447\d{9}$/.test(cleaned)) {
+        return cleaned;
+      }
+      throw new Error("Enter a valid UK mobile number.");
+    }
+
+    function showMessage(text, error = false) {
+      const el = document.getElementById("message");
+      el.textContent = text;
+      el.style.color = error ? "#ff9999" : "#e8c879";
+    }
+
+    async function sendCode() {
+      const button = document.getElementById("sendButton");
+      button.disabled = true;
+
+      try {
+        pendingPhone = normalisePhone(
+          document.getElementById("phone").value
+        );
+
+        const { error } = await client.auth.signInWithOtp({
+          phone: pendingPhone
+        });
+
+        if (error) throw error;
+
+        document.getElementById("registerSection").style.display = "none";
+        document.getElementById("verifySection").style.display = "block";
+        showMessage("Verification code requested. Check your messages.");
+      } catch (err) {
+        showMessage(err.message || "Unable to send code.", true);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function verifyCode() {
+      const button = document.getElementById("verifyButton");
+      button.disabled = true;
+
+      try {
+        const token = document.getElementById("otp").value.trim();
+
+        if (!/^\d{6}$/.test(token)) {
+          throw new Error("Enter the six-digit verification code.");
+        }
+
+        const { error } = await client.auth.verifyOtp({
+          phone: pendingPhone,
+          token,
+          type: "sms"
+        });
+
+        if (error) throw error;
+
+        document.getElementById("verifySection").style.display = "none";
+        showMessage(
+          "Mobile verified successfully! Your membership " +
+          "dashboard and welcome points are coming next."
+        );
+      } catch (err) {
+        showMessage(err.message || "Verification failed.", true);
+      } finally {
+        button.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
