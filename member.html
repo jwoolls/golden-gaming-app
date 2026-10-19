@@ -2,90 +2,300 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Golden Gaming | Loyalty Pays</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#101010;color:#f6f0e5;font-family:Arial,sans-serif}
-.wrap{max-width:460px;margin:0 auto;padding:34px 20px 50px}
-header{text-align:center;color:#e8c77c}
-h1{font-size:29px;letter-spacing:3px;margin:18px 0 12px}
-header p{letter-spacing:5px;font-size:14px;margin-bottom:30px}
-.card{border:1px solid #a88a42;border-radius:22px;padding:26px;background:linear-gradient(145deg,#292622,#141414);box-shadow:0 12px 35px #0008}
-.small{color:#c7b27b;font-size:12px;letter-spacing:2px}
-.name{font-size:27px;font-weight:bold;margin:10px 0 24px}
-.qr{background:#fff;padding:15px;border-radius:12px;width:220px;height:220px;margin:auto;display:flex;align-items:center;justify-content:center}
-.qr svg{width:190px;height:190px}
-#code{text-align:center;font-size:12px;color:#b6b0a6;margin-top:15px}
-.points{text-align:center;margin-top:22px;padding:24px;background:#1d1d1d;border-radius:16px;border:1px solid #4d4128}
-.points strong{display:block;font-size:46px;color:#e8c77c;margin:8px}
-.btn{display:block;width:100%;background:#e8c77c;color:#101010;border:0;border-radius:12px;padding:17px;margin-top:20px;font-weight:bold;font-size:17px;cursor:pointer}
-.note{font-size:12px;color:#aaa;line-height:1.6;text-align:center;margin-top:24px}
-.demo{background:#4c3b18;color:#ffe3a2;text-align:center;padding:10px;border-radius:8px;font-size:12px;margin-bottom:20px}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #101010;
+  color: #f6f0e5;
+  font-family: Arial, sans-serif;
+}
+
+.wrap {
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 34px 20px 50px;
+}
+
+header {
+  text-align: center;
+  color: #e8c77c;
+}
+
+h1 {
+  font-size: 29px;
+  letter-spacing: 3px;
+  margin: 18px 0 12px;
+}
+
+header p {
+  letter-spacing: 5px;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.card {
+  border: 1px solid #a88a42;
+  border-radius: 22px;
+  padding: 26px;
+  background: linear-gradient(145deg,#292622,#141414);
+  box-shadow: 0 12px 35px #0008;
+}
+
+.small {
+  color: #c7b27b;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.name {
+  font-size: 27px;
+  font-weight: bold;
+  margin: 10px 0 24px;
+}
+
+.qr {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  width: 220px;
+  height: 220px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr canvas {
+  width: 190px;
+  height: 190px;
+}
+
+#code {
+  text-align: center;
+  font-size: 12px;
+  color: #b6b0a6;
+  margin-top: 15px;
+  overflow-wrap: anywhere;
+}
+
+.points {
+  text-align: center;
+  margin-top: 22px;
+  padding: 24px;
+  background: #1d1d1d;
+  border-radius: 16px;
+  border: 1px solid #4d4128;
+}
+
+.points strong {
+  display: block;
+  font-size: 46px;
+  color: #e8c77c;
+  margin: 8px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  background: #e8c77c;
+  color: #101010;
+  border: 0;
+  border-radius: 12px;
+  padding: 17px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.note {
+  font-size: 12px;
+  color: #aaa;
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.status {
+  color: #e8c77c;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
 </style>
 </head>
+
 <body>
 <div class="wrap">
+
 <header>
-<h1>GOLDEN GAMING</h1>
-<p>LOYALTY PAYS</p>
+  <h1>GOLDEN GAMING</h1>
+  <p>LOYALTY PAYS</p>
 </header>
-<div class="demo">DEMO MEMBERSHIP — NOT VALID FOR REWARDS OR VISITS</div>
-<section class="card">
-<div class="small">DIGITAL MEMBERSHIP CARD</div>
-<div class="name">Demo Member</div>
-<div class="qr" id="qr"></div>
-<div id="code">DEMO-GG-000001</div>
-<p style="text-align:center;font-size:14px">Show your QR code to a member of staff when visiting.</p>
-</section>
-<section class="points">
-<div class="small">YOUR POINTS BALANCE</div>
-<strong>500</strong>
-<div>Illustrative welcome points</div>
-</section>
-<button class="btn" onclick="document.getElementById('rewards').hidden=!document.getElementById('rewards').hidden">View rewards</button>
-<section id="rewards" class="points" hidden>
-<div class="small">REWARDS</div>
-<p>500 points = £5 gaming machine voucher</p>
-<p>1,000 points = £10 voucher</p>
-<p>2,000 points = £20 voucher</p>
-<p>Higher tiers available subject to eligibility and compliance approval.</p>
-</section>
-<p class="note">Demo only. No account has been created, no points have been awarded, and the QR code cannot be redeemed. Real membership requires verified registration, staff eligibility checks, and a secure server-generated membership identifier.</p>
+
+<div id="status" class="status">
+  Checking your membership...
 </div>
+
+<div id="memberArea" class="hidden">
+
+<section class="card">
+  <div class="small">DIGITAL MEMBERSHIP CARD</div>
+  <div class="name" id="memberName"></div>
+
+  <div class="qr" id="qr"></div>
+  <div id="code"></div>
+
+  <p style="text-align:center;font-size:14px">
+    Show your QR code to a member of staff when visiting.
+  </p>
+</section>
+
+<section class="points">
+  <div class="small">YOUR POINTS BALANCE</div>
+  <strong id="balance"></strong>
+  <div>Available points</div>
+</section>
+
+<button class="btn" id="rewardsButton">
+  View rewards
+</button>
+
+<section id="rewards" class="points hidden">
+  <div class="small">REWARDS</div>
+
+  <p>500 points = £5 gaming machine voucher</p>
+  <p>1,000 points = £10 voucher</p>
+  <p>2,000 points = £20 voucher</p>
+  <p>3,000 points = £30 voucher</p>
+  <p>5,000 points = £50 voucher</p>
+  <p>10,000 points = £100 voucher</p>
+  <p>20,000 points = £200 voucher</p>
+  <p>25,000 points = £250 voucher</p>
+</section>
+
+</div>
+
+<p class="note">
+  For adults aged 18+ only.
+  Membership, points and rewards are subject to
+  eligibility checks, venue verification and
+  applicable terms. QR scanning and redemption
+  are not yet activated.
+</p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+
 <script>
-const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-svg.setAttribute('viewBox','0 0 190 190');
-const n=29,s=190/n;
-let seed=371;
-function rand(){
-  seed=(seed*1664525+1013904223)>>>0;
-  return seed/4294967296;
+const SUPABASE_URL =
+  'https://ujytgyrrwqtixwlozzyr.supabase.co';
+
+const SUPABASE_KEY =
+  'sb_publishable_JYGd9_FfX4Dyh9za_oXVUg_UcmqDioz';
+
+const statusEl = document.getElementById('status');
+
+function setStatus(message) {
+  statusEl.textContent = message;
+  statusEl.classList.remove('hidden');
 }
-function finder(x,y){
-  for(let a=0;a<7;a++)
-    for(let b=0;b<7;b++)
-      rect(x+a,y+b,a===0||b===0||a===6||b===6||(a>=2&&a<=4&&b>=2&&b<=4));
-}
-function rect(x,y,on){
-  if(!on)return;
-  const r=document.createElementNS('http://www.w3.org/2000/svg','rect');
-  r.setAttribute('x',x*s);
-  r.setAttribute('y',y*s);
-  r.setAttribute('width',s+.1);
-  r.setAttribute('height',s+.1);
-  svg.appendChild(r);
-}
-for(let y=0;y<n;y++){
-  for(let x=0;x<n;x++){
-    if((x<8&&y<8)||(x>n-9&&y<8)||(x<8&&y>n-9))continue;
-    rect(x,y,rand()>.52);
+
+async function loadMembership() {
+  try {
+    if (!window.supabase || !window.QRCode) {
+      throw new Error('Required libraries unavailable');
+    }
+
+    const client = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const { data: authData, error: authError } =
+      await client.auth.getUser();
+
+    const user = authData?.user;
+
+    if (authError || !user) {
+      setStatus(
+        'Please sign in using the Golden Gaming registration page before viewing your membership.'
+      );
+      return;
+    }
+
+    const { data, error } = await client
+      .from('members')
+      .select('id,first_name,surname,points_balance')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data) {
+      setStatus(
+        'Your account is signed in, but your membership has not yet been activated. Please ask a member of staff.'
+      );
+      return;
+    }
+
+    document.getElementById('memberName').textContent =
+      [data.first_name, data.surname]
+        .filter(Boolean)
+        .join(' ');
+
+    document.getElementById('balance').textContent =
+      Number(data.points_balance).toLocaleString('en-GB');
+
+    document.getElementById('code').textContent =
+      data.id;
+
+    const canvas = document.createElement('canvas');
+
+    document.getElementById('qr').appendChild(canvas);
+
+    await window.QRCode.toCanvas(
+      canvas,
+      'GG-MEMBER:' + data.id,
+      {
+        width: 190,
+        margin: 1,
+        errorCorrectionLevel: 'M'
+      }
+    );
+
+    statusEl.classList.add('hidden');
+
+    document.getElementById('memberArea')
+      .classList.remove('hidden');
+
+  } catch (error) {
+    console.error(error);
+    setStatus(
+      'We could not load your membership. Please try again later.'
+    );
   }
 }
-finder(0,0);
-finder(n-7,0);
-finder(0,n-7);
-document.getElementById('qr').appendChild(svg);
+
+document.getElementById('rewardsButton')
+  .addEventListener('click', function() {
+    document.getElementById('rewards')
+      .classList.toggle('hidden');
+  });
+
+loadMembership();
 </script>
+
 </body>
 </html>
