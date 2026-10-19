@@ -1,300 +1,1070 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090807">
 <title>Golden Gaming | Loyalty Pays</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+:root {
+  --gold: #e8c36b;
+  --lightgold: #fff0b4;
+  --dark: #090807;
+  --border: #ad8130;
+}
+
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: #101010;
-  color: #f6f0e5;
-  font-family: Arial, sans-serif;
+  background: radial-gradient(
+    ellipse at top,
+    #3b2a0d 0%,
+    #090807 50%
+  );
+  color: #fff7e6;
+  font-family: Montserrat, Arial, sans-serif;
 }
 
-.wrap {
-  max-width: 460px;
-  margin: 0 auto;
-  padding: 34px 20px 50px;
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.app {
+  max-width: 780px;
+  margin: 14px auto;
+  padding: 12px;
+}
+
+.frame {
+  border: 2px solid var(--gold);
+  border-radius: 22px;
+  padding: 15px;
+  background: linear-gradient(145deg, #18130b, #050505);
+  box-shadow:
+    inset 0 0 0 3px #39270b,
+    0 0 30px #b5852938;
 }
 
 header {
   text-align: center;
-  color: #e8c77c;
+  padding: 20px 0;
+}
+
+.crown {
+  font-size: 36px;
+  color: var(--gold);
+}
+
+h1, h2, h3 {
+  font-family: Cinzel, Georgia, serif;
 }
 
 h1 {
-  font-size: 29px;
-  letter-spacing: 3px;
-  margin: 18px 0 12px;
+  color: var(--lightgold);
+  font-size: clamp(25px, 6vw, 42px);
+  margin: 5px 0;
+  text-shadow: 0 0 15px #c79544;
 }
 
-header p {
+.tagline {
+  color: var(--gold);
   letter-spacing: 5px;
-  font-size: 14px;
-  margin-bottom: 30px;
-}
-
-.card {
-  border: 1px solid #a88a42;
-  border-radius: 22px;
-  padding: 26px;
-  background: linear-gradient(145deg,#292622,#141414);
-  box-shadow: 0 12px 35px #0008;
-}
-
-.small {
-  color: #c7b27b;
   font-size: 12px;
-  letter-spacing: 2px;
 }
 
-.name {
-  font-size: 27px;
-  font-weight: bold;
-  margin: 10px 0 24px;
+.panel {
+  background: linear-gradient(135deg, #20180d, #080808);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  padding: 18px;
+  margin: 15px 0;
+  box-shadow: inset 0 0 0 2px #493312;
 }
 
-.qr {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  width: 220px;
-  height: 220px;
-  margin: auto;
-  display: flex;
+.membership {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 15px;
   align-items: center;
-  justify-content: center;
 }
 
-.qr canvas {
-  width: 190px;
-  height: 190px;
+.label {
+  color: #d5bc83;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-#code {
-  text-align: center;
-  font-size: 12px;
-  color: #b6b0a6;
-  margin-top: 15px;
+.member-name {
+  font-family: Cinzel, serif;
+  color: var(--lightgold);
+  font-size: 21px;
+  margin: 8px 0;
   overflow-wrap: anywhere;
 }
 
+.member-id {
+  color: #d6bc80;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+.qr-box {
+  background: white;
+  padding: 9px;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+}
+
+.qr-box img,
+.qr-box canvas {
+  max-width: 100%;
+}
+
 .points {
+  grid-column: 1 / -1;
   text-align: center;
-  margin-top: 22px;
-  padding: 24px;
-  background: #1d1d1d;
-  border-radius: 16px;
-  border: 1px solid #4d4128;
+  border-top: 1px solid #654a21;
+  padding-top: 12px;
 }
 
-.points strong {
-  display: block;
-  font-size: 46px;
-  color: #e8c77c;
-  margin: 8px;
-}
-
-.btn {
-  display: block;
-  width: 100%;
-  background: #e8c77c;
-  color: #101010;
-  border: 0;
-  border-radius: 12px;
-  padding: 17px;
-  margin-top: 20px;
+.points-number {
+  font-family: Cinzel, serif;
+  font-size: 49px;
   font-weight: bold;
-  font-size: 17px;
-  cursor: pointer;
+  color: var(--lightgold);
 }
 
-.note {
-  font-size: 12px;
-  color: #aaa;
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 11px;
+  margin-top: 15px;
+}
+
+.tile {
+  background: radial-gradient(circle at top, #49300c, #100d08);
+  border: 1px solid var(--gold);
+  box-shadow: inset 0 0 0 2px #4a3313;
+  border-radius: 15px;
+  min-height: 120px;
+  color: var(--lightgold);
+  padding: 15px 8px;
+  text-align: center;
+}
+
+.tile .icon {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 9px;
+}
+
+.tile strong {
+  font-family: Cinzel, serif;
+  font-size: 13px;
+}
+
+.promo {
+  text-align: center;
+  background: radial-gradient(circle, #4b3008, #080808);
+}
+
+.promo h2 {
+  color: var(--lightgold);
+  font-size: clamp(23px, 5vw, 34px);
+  margin: 8px 0;
+}
+
+.promo h3 {
+  color: white;
+  font-size: clamp(21px, 5vw, 31px);
+  margin: 8px 0;
+}
+
+.gold-button {
+  background: linear-gradient(#ffedaa, #b88525);
+  border: 1px solid #ffec9d;
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #211602;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.small-button {
+  background: #1d170c;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 9px;
+  padding: 9px 12px;
+}
+
+.section { display: none; }
+.section.active { display: block; }
+
+.section h2 {
+  color: var(--lightgold);
+}
+
+.description {
+  color: #decba2;
+  line-height: 1.7;
+}
+
+.reward {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #6c5124;
+  gap: 12px;
+}
+
+.reward strong {
+  color: var(--lightgold);
+}
+
+.notice {
+  background: #21190d;
+  border: 1px solid #826026;
+  border-radius: 10px;
+  padding: 14px;
+  color: #f0d8a4;
   line-height: 1.6;
-  text-align: center;
-  margin-top: 24px;
+  margin: 12px 0;
 }
 
-.status {
-  color: #e8c77c;
-  text-align: center;
-  line-height: 1.5;
-  margin-bottom: 20px;
+.games {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
-.hidden {
-  display: none;
+.game {
+  border: 1px solid var(--gold);
+  border-radius: 15px;
+  background: #1d160c;
+  padding: 18px 10px;
+  text-align: center;
+}
+
+.game-icon {
+  font-size: 45px;
+}
+
+.game h3 {
+  color: var(--lightgold);
+}
+
+.wheel {
+  width: 190px;
+  height: 190px;
+  margin: 20px auto;
+  border: 8px solid var(--gold);
+  border-radius: 50%;
+  background: conic-gradient(
+    #b98524 0deg 60deg,
+    #30210c 60deg 120deg,
+    #d8ab4d 120deg 180deg,
+    #30210c 180deg 240deg,
+    #b98524 240deg 300deg,
+    #30210c 300deg
+  );
+  display: grid;
+  place-items: center;
+  color: white;
+  font-family: Cinzel, serif;
+  font-size: 23px;
+  transition: transform 2.5s cubic-bezier(.16,.8,.15,1);
+}
+
+.scratch-card {
+  position: relative;
+  max-width: 290px;
+  height: 155px;
+  margin: 20px auto;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #a87a27, #f7dd91);
+  display: grid;
+  place-items: center;
+  color: #211603;
+  font-family: Cinzel, serif;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.scratch-card canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.result {
+  text-align: center;
+  color: var(--lightgold);
+  font-family: Cinzel, serif;
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.footer {
+  font-size: 11px;
+  color: #c5ac78;
+  text-align: center;
+  line-height: 1.8;
+  padding: 20px 0;
+}
+
+.footer a { color: var(--lightgold); }
+
+.hidden { display: none !important; }
+
+@media(max-width: 480px) {
+  .frame { padding: 10px; }
+  .panel { padding: 13px; }
+  .games { grid-template-columns: 1fr; }
+  .qr-box { max-width: 115px; }
 }
 </style>
 </head>
 
 <body>
-<div class="wrap">
+
+<main class="app">
+<div class="frame">
+
+<div style="text-align:right">
+  <button class="small-button" id="refreshBtn">
+    Refresh
+  </button>
+  <button class="small-button" id="signoutBtn">
+    Sign Out
+  </button>
+</div>
 
 <header>
+  <div class="crown">♛</div>
   <h1>GOLDEN GAMING</h1>
-  <p>LOYALTY PAYS</p>
+  <div class="tagline">LOYALTY PAYS</div>
 </header>
 
-<div id="status" class="status">
-  Checking your membership...
+<div id="loading" class="notice">
+  Loading your membership...
 </div>
 
-<div id="memberArea" class="hidden">
+<div id="dashboard" class="hidden">
 
-<section class="card">
-  <div class="small">DIGITAL MEMBERSHIP CARD</div>
-  <div class="name" id="memberName"></div>
+  <div class="panel membership">
+    <div>
+      <div class="label">Your Membership</div>
+      <div class="member-name" id="memberName">
+        Member
+      </div>
+      <div class="label">Membership ID</div>
+      <div class="member-id" id="memberId">—</div>
+    </div>
 
-  <div class="qr" id="qr"></div>
-  <div id="code"></div>
+    <div class="qr-box">
+      <div id="membershipQR"></div>
+      <div style="font-size:9px;font-weight:bold">
+        SHOW TO STAFF
+      </div>
+    </div>
 
-  <p style="text-align:center;font-size:14px">
-    Show your QR code to a member of staff when visiting.
+    <div class="points">
+      <div class="label">Available Points</div>
+      <div class="points-number" id="pointsBalance">
+        0
+      </div>
+      <div class="label">Loyalty Points</div>
+    </div>
+  </div>
+
+  <section id="home" class="section active">
+
+    <div class="tiles">
+      <button class="tile" data-page="redeem">
+        <span class="icon">🎁</span>
+        <strong>REDEEM NOW</strong>
+      </button>
+
+      <button class="tile" data-page="rewards">
+        <span class="icon">🏆</span>
+        <strong>REWARDS MENU</strong>
+      </button>
+
+      <button class="tile" data-page="daily">
+        <span class="icon">🎟️</span>
+        <strong>GOLDEN SCRATCH</strong>
+      </button>
+
+      <button class="tile" data-page="daily">
+        <span class="icon">☸️</span>
+        <strong>FORTUNE WHEEL</strong>
+      </button>
+
+      <button class="tile" data-page="prizes">
+        <span class="icon">🎫</span>
+        <strong>MY PRIZES</strong>
+      </button>
+
+      <button class="tile" data-page="offers">
+        <span class="icon">📅</span>
+        <strong>OFFERS & EVENTS</strong>
+      </button>
+
+      <button class="tile" data-page="machines">
+        <span class="icon">🎰</span>
+        <strong>OUR GAMES</strong>
+      </button>
+
+      <button class="tile" data-page="history">
+        <span class="icon">⭐</span>
+        <strong>POINTS HISTORY</strong>
+      </button>
+    </div>
+
+    <div class="panel promo">
+      <h2>PLAY EVERY DAY!</h2>
+      <h3>WIN EVERY TIME!</h3>
+
+      <p class="description">
+        Choose Golden Scratch or Fortune Wheel.
+        One game per day across both games.
+      </p>
+
+      <button class="gold-button" data-page="daily">
+        EXPLORE DAILY GAMES
+      </button>
+
+      <p style="font-size:11px;color:#c7ad75">
+        Promotional concept. Real prizes are not active
+        until the promotion has been approved.
+      </p>
+    </div>
+
+  </section>
+
+  <div class="panel" id="contentPanel" style="display:none">
+
+    <section id="rewards" class="section">
+      <h2>Rewards Menu</h2>
+      <p class="description">
+        Exchange eligible points for gaming-machine vouchers.
+      </p>
+      <div id="rewardsList"></div>
+    </section>
+
+    <section id="redeem" class="section">
+      <h2>Redeem Now</h2>
+      <p class="description">
+        Choose a gaming-machine voucher reward.
+      </p>
+      <div id="redeemList"></div>
+      <div class="notice">
+        Redemption is not yet active.
+        Staff verification, secure voucher processing
+        and compliance approval are required.
+      </div>
+    </section>
+
+    <section id="daily" class="section">
+      <h2>Daily Golden Games</h2>
+
+      <p class="description">
+        Choose Golden Scratch or Fortune Wheel.
+        You can play one game per UK calendar day.
+      </p>
+
+      <div class="notice">
+        <strong>DEMO MODE</strong>
+        <div>
+          Daily plays are recorded securely.
+          No real points or vouchers are awarded yet.
+        </div>
+      </div>
+
+      <div id="dailyStatus" class="notice">
+        Checking today's game availability...
+      </div>
+
+      <div class="games">
+
+        <div class="game">
+          <div class="game-icon">🎟️</div>
+          <h3>Golden Scratch</h3>
+          <p class="description">
+            Scratch to reveal your demo result.
+          </p>
+          <button class="gold-button" id="scratchBtn" disabled>
+            PLAY GOLDEN SCRATCH
+          </button>
+        </div>
+
+        <div class="game">
+          <div class="game-icon">☸️</div>
+          <h3>Fortune Wheel</h3>
+          <p class="description">
+            Spin the golden wheel.
+          </p>
+          <button class="gold-button" id="wheelBtn" disabled>
+            SPIN THE WHEEL
+          </button>
+        </div>
+
+      </div>
+
+      <div id="gameStage" class="hidden">
+
+        <div id="wheelVisual" class="wheel hidden">
+          GOLD
+        </div>
+
+        <div id="scratchVisual" class="scratch-card hidden">
+          <span>DEMO PLAY</span>
+          <canvas id="scratchCanvas"></canvas>
+        </div>
+
+        <div class="result" id="gameResult"></div>
+
+      </div>
+    </section>
+
+    <section id="prizes" class="section">
+      <h2>My Prizes</h2>
+      <p class="description">
+        Your approved gaming-machine voucher prizes
+        will appear here for staff collection.
+      </p>
+      <div class="notice">
+        No collectible prizes have been issued.
+        Demo games do not award real prizes.
+      </div>
+    </section>
+
+    <section id="offers" class="section">
+      <h2>Offers & Events</h2>
+      <p class="description">
+        Discover the latest promotions at
+        Golden Gaming – Deal.
+      </p>
+      <div class="notice">
+        Venue promotions and events will appear here
+        once the management system is connected.
+      </div>
+    </section>
+
+    <section id="machines" class="section">
+      <h2>Our Games</h2>
+      <p class="description">
+        Discover the latest gaming machines
+        at Golden Gaming – Deal.
+      </p>
+      <div class="notice">
+        Machine photographs and descriptions
+        will be added here.
+      </div>
+    </section>
+
+    <section id="history" class="section">
+      <h2>Points History</h2>
+      <p class="description">
+        Your current points balance is
+        <strong id="historyBalance">0</strong>.
+      </p>
+      <div class="notice">
+        Your transaction history will appear here
+        when the secure points ledger is connected.
+      </div>
+    </section>
+
+    <button class="small-button" id="backBtn">
+      ← Back to Dashboard
+    </button>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  Golden Gaming – Deal · Adults 18+ only.
+  Membership does not itself confirm age or eligibility.
+  Rewards subject to applicable terms and approval.
+  <p>
+    When the fun stops, stop.
+    <a href="https://www.gambleaware.org/"
+       target="_blank" rel="noopener noreferrer">
+      GambleAware
+    </a>
   </p>
-</section>
-
-<section class="points">
-  <div class="small">YOUR POINTS BALANCE</div>
-  <strong id="balance"></strong>
-  <div>Available points</div>
-</section>
-
-<button class="btn" id="rewardsButton">
-  View rewards
-</button>
-
-<section id="rewards" class="points hidden">
-  <div class="small">REWARDS</div>
-
-  <p>500 points = £5 gaming machine voucher</p>
-  <p>1,000 points = £10 voucher</p>
-  <p>2,000 points = £20 voucher</p>
-  <p>3,000 points = £30 voucher</p>
-  <p>5,000 points = £50 voucher</p>
-  <p>10,000 points = £100 voucher</p>
-  <p>20,000 points = £200 voucher</p>
-  <p>25,000 points = £250 voucher</p>
-</section>
-
 </div>
 
-<p class="note">
-  For adults aged 18+ only.
-  Membership, points and rewards are subject to
-  eligibility checks, venue verification and
-  applicable terms. QR scanning and redemption
-  are not yet activated.
-</p>
-
 </div>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-const SUPABASE_URL =
-  'https://ujytgyrrwqtixwlozzyr.supabase.co';
+(() => {
+  "use strict";
 
-const SUPABASE_KEY =
-  'sb_publishable_JYGd9_FfX4Dyh9za_oXVUg_UcmqDioz';
+  const SUPABASE_URL =
+    "https://ujytgyrrwqtixwlozzyr.supabase.co";
 
-const statusEl = document.getElementById('status');
+  const SUPABASE_KEY =
+    "sb_publishable_JYGd9_FfX4Dyh9za_oXVUg_UcmqDioz";
 
-function setStatus(message) {
-  statusEl.textContent = message;
-  statusEl.classList.remove('hidden');
-}
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-async function loadMembership() {
-  try {
-    if (!window.supabase || !window.QRCode) {
-      throw new Error('Required libraries unavailable');
+  const $ = id => document.getElementById(id);
+
+  let member = null;
+  let gameUsed = null;
+  let busy = false;
+
+  const rewards = [
+    [500, 5],
+    [1000, 10],
+    [2000, 20],
+    [3000, 30],
+    [5000, 50],
+    [10000, 100],
+    [20000, 200],
+    [25000, 250]
+  ];
+
+  function setText(id, value) {
+    $(id).textContent = String(value ?? "");
+  }
+
+  function showPage(page) {
+    document.querySelectorAll(".section").forEach(el => {
+      el.classList.toggle("active", el.id === page);
+    });
+
+    $("contentPanel").style.display =
+      page === "home" ? "none" : "block";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (page === "daily") {
+      checkDailyGame();
     }
+  }
 
-    const client = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+  function buildRewards() {
+    ["rewardsList", "redeemList"].forEach(target => {
+      $(target).replaceChildren();
 
-    const { data: authData, error: authError } =
-      await client.auth.getUser();
+      rewards.forEach(([points, pounds]) => {
+        const row = document.createElement("div");
+        row.className = "reward";
 
-    const user = authData?.user;
+        const details = document.createElement("div");
 
-    if (authError || !user) {
-      setStatus(
-        'Please sign in using the Golden Gaming registration page before viewing your membership.'
-      );
-      return;
-    }
+        const title = document.createElement("strong");
+        title.textContent = "£" + pounds + " Gaming Voucher";
 
-    const { data, error } = await client
-      .from('members')
-      .select('id,first_name,surname,points_balance')
-      .eq('user_id', user.id)
-      .maybeSingle();
+        const amount = document.createElement("div");
+        amount.className = "description";
+        amount.textContent =
+          points.toLocaleString("en-GB") + " points";
 
-    if (error) throw error;
+        details.append(title, amount);
+        row.append(details);
 
-    if (!data) {
-      setStatus(
-        'Your account is signed in, but your membership has not yet been activated. Please ask a member of staff.'
-      );
-      return;
-    }
+        if (target === "redeemList") {
+          const button = document.createElement("button");
+          button.className = "small-button";
+          button.disabled = true;
 
-    document.getElementById('memberName').textContent =
-      [data.first_name, data.surname]
-        .filter(Boolean)
-        .join(' ');
+          button.textContent =
+            Number(member.points_balance) >= points
+              ? "Coming Soon"
+              : "Not Enough Points";
 
-    document.getElementById('balance').textContent =
-      Number(data.points_balance).toLocaleString('en-GB');
+          row.append(button);
+        }
 
-    document.getElementById('code').textContent =
-      data.id;
+        $(target).append(row);
+      });
+    });
+  }
 
-    const canvas = document.createElement('canvas');
+  async function loadMembership() {
+    try {
+      const auth = await db.auth.getUser();
 
-    document.getElementById('qr').appendChild(canvas);
-
-    await window.QRCode.toCanvas(
-      canvas,
-      'GG-MEMBER:' + data.id,
-      {
-        width: 190,
-        margin: 1,
-        errorCorrectionLevel: 'M'
+      if (auth.error || !auth.data.user) {
+        window.location.replace("register.html");
+        return;
       }
-    );
 
-    statusEl.classList.add('hidden');
+      const result = await db
+        .from("members")
+        .select(
+          "id, first_name, surname, points_balance"
+        )
+        .eq("user_id", auth.data.user.id)
+        .single();
 
-    document.getElementById('memberArea')
-      .classList.remove('hidden');
+      if (result.error) {
+        throw result.error;
+      }
 
-  } catch (error) {
-    console.error(error);
-    setStatus(
-      'We could not load your membership. Please try again later.'
+      member = result.data;
+
+      setText(
+        "memberName",
+        [member.first_name, member.surname]
+          .filter(Boolean)
+          .join(" ") || "Member"
+      );
+
+      setText("memberId", member.id);
+
+      const balance = Number(
+        member.points_balance || 0
+      ).toLocaleString("en-GB");
+
+      setText("pointsBalance", balance);
+      setText("historyBalance", balance);
+
+      $("membershipQR").replaceChildren();
+
+      new QRCode($("membershipQR"), {
+        text: "GG-MEMBER:" + member.id,
+        width: 100,
+        height: 100,
+        colorDark: "#111111",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      buildRewards();
+
+      $("loading").classList.add("hidden");
+      $("dashboard").classList.remove("hidden");
+
+      showPage("home");
+
+    } catch (error) {
+      setText(
+        "loading",
+        "Unable to load membership: " + error.message
+      );
+    }
+  }
+
+  function ukDate() {
+    const parts = new Intl.DateTimeFormat(
+      "en-GB",
+      {
+        timeZone: "Europe/London",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }
+    ).formatToParts(new Date());
+
+    const value = type =>
+      parts.find(p => p.type === type).value;
+
+    return (
+      value("year") + "-" +
+      value("month") + "-" +
+      value("day")
     );
   }
-}
 
-document.getElementById('rewardsButton')
-  .addEventListener('click', function() {
-    document.getElementById('rewards')
-      .classList.toggle('hidden');
-  });
+  function updateButtons() {
+    const disabled = busy || gameUsed !== false;
 
-loadMembership();
+    $("scratchBtn").disabled = disabled;
+    $("wheelBtn").disabled = disabled;
+  }
+
+  async function checkDailyGame() {
+    if (!member) return;
+
+    busy = true;
+    updateButtons();
+
+    try {
+      const result = await db
+        .from("daily_game_plays")
+        .select("id")
+        .eq("member_id", member.id)
+        .eq("play_date", ukDate())
+        .limit(1);
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      gameUsed = result.data.length > 0;
+
+      setText(
+        "dailyStatus",
+        gameUsed
+          ? "You have already played today. " +
+            "Your next demo play is available tomorrow (UK time)."
+          : "Your daily demo play is available! " +
+            "Choose Golden Scratch or Fortune Wheel."
+      );
+
+    } catch (error) {
+      gameUsed = null;
+
+      setText(
+        "dailyStatus",
+        "Unable to check game availability: " +
+        error.message
+      );
+
+    } finally {
+      busy = false;
+      updateButtons();
+    }
+  }
+
+  async function playGame(type) {
+    if (!member || busy || gameUsed !== false) {
+      return;
+    }
+
+    busy = true;
+    updateButtons();
+
+    setText(
+      "dailyStatus",
+      "Checking your daily play..."
+    );
+
+    try {
+      const gameType =
+        type === "scratch"
+          ? "golden_scratch"
+          : "fortune_wheel";
+
+      const result = await db.rpc(
+        "play_daily_game",
+        { p_game_type: gameType }
+      );
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      if (!result.data.success) {
+        gameUsed = true;
+
+        setText(
+          "dailyStatus",
+          result.data.message ||
+          "You have already played today."
+        );
+
+        return;
+      }
+
+      gameUsed = true;
+
+      setText(
+        "dailyStatus",
+        "Today's demo play has been used. " +
+        "Come back tomorrow (UK time)."
+      );
+
+      $("gameStage").classList.remove("hidden");
+
+      $("wheelVisual").classList.toggle(
+        "hidden",
+        type !== "wheel"
+      );
+
+      $("scratchVisual").classList.toggle(
+        "hidden",
+        type !== "scratch"
+      );
+
+      if (type === "wheel") {
+        spinWheel();
+      } else {
+        startScratch();
+      }
+
+    } catch (error) {
+      gameUsed = null;
+
+      setText(
+        "dailyStatus",
+        "Unable to start game: " + error.message
+      );
+
+    } finally {
+      busy = false;
+      updateButtons();
+    }
+  }
+
+  function spinWheel() {
+    setText("gameResult", "Spinning...");
+
+    const wheel = $("wheelVisual");
+
+    wheel.style.transform = "rotate(0deg)";
+
+    requestAnimationFrame(() => {
+      wheel.style.transform = "rotate(1500deg)";
+    });
+
+    setTimeout(() => {
+      setText(
+        "gameResult",
+        "DEMO COMPLETE — NO REAL PRIZE ISSUED"
+      );
+    }, 2700);
+  }
+
+  function startScratch() {
+    const canvas = $("scratchCanvas");
+    const box = $("scratchVisual");
+
+    canvas.width = box.clientWidth;
+    canvas.height = box.clientHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#bc9143";
+    ctx.fillRect(
+      0, 0,
+      canvas.width,
+      canvas.height
+    );
+
+    ctx.fillStyle = "#211604";
+    ctx.font = "bold 20px Georgia";
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+      "SCRATCH HERE",
+      canvas.width / 2,
+      canvas.height / 2
+    );
+
+    canvas.style.display = "block";
+
+    setText(
+      "gameResult",
+      "Scratch the golden card"
+    );
+
+    let scratching = false;
+    let strokes = 0;
+    let finished = false;
+
+    function scratch(event) {
+      if (!scratching || finished) return;
+
+      const rect = canvas.getBoundingClientRect();
+
+      const x =
+        (event.clientX - rect.left) *
+        canvas.width / rect.width;
+
+      const y =
+        (event.clientY - rect.top) *
+        canvas.height / rect.height;
+
+      ctx.globalCompositeOperation =
+        "destination-out";
+
+      ctx.beginPath();
+      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.fill();
+
+      strokes++;
+
+      if (strokes > 40) {
+        finished = true;
+        canvas.style.display = "none";
+
+        setText(
+          "gameResult",
+          "DEMO COMPLETE — NO REAL PRIZE ISSUED"
+        );
+      }
+    }
+
+    canvas.onpointerdown = event => {
+      scratching = true;
+      canvas.setPointerCapture(event.pointerId);
+      scratch(event);
+    };
+
+    canvas.onpointermove = scratch;
+
+    canvas.onpointerup = () => {
+      scratching = false;
+    };
+
+    canvas.onpointercancel = () => {
+      scratching = false;
+    };
+  }
+
+  document.querySelectorAll("[data-page]")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        showPage(button.dataset.page);
+      });
+    });
+
+  $("backBtn").onclick = () => {
+    showPage("home");
+  };
+
+  $("scratchBtn").onclick = () => {
+    playGame("scratch");
+  };
+
+  $("wheelBtn").onclick = () => {
+    playGame("wheel");
+  };
+
+  $("refreshBtn").onclick = () => {
+    window.location.reload();
+  };
+
+  $("signoutBtn").onclick = async () => {
+    await db.auth.signOut();
+    window.location.replace("register.html");
+  };
+
+  loadMembership();
+
+})();
 </script>
 
 </body>
