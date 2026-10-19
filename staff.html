@@ -1,0 +1,738 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090807">
+<title>Golden Gaming | Staff Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold:#e8c36b;
+  --light:#fff0b4;
+  --dark:#090807;
+}
+
+* {box-sizing:border-box}
+
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#35260e,#090807 65%);
+  color:#fff6df;
+  font-family:Montserrat,Arial,sans-serif;
+}
+
+main {
+  max-width:760px;
+  margin:16px auto;
+  padding:12px;
+}
+
+.frame {
+  border:2px solid var(--gold);
+  border-radius:22px;
+  padding:16px;
+  background:linear-gradient(145deg,#19130a,#050505);
+  box-shadow:inset 0 0 0 3px #39270b,0 0 30px #b5852930;
+}
+
+header {
+  text-align:center;
+  padding:18px 0 24px;
+}
+
+.crown {
+  color:var(--gold);
+  font-size:36px;
+}
+
+h1,h2,h3 {
+  font-family:Cinzel,Georgia,serif;
+  color:var(--light);
+}
+
+h1 {
+  font-size:clamp(24px,6vw,38px);
+  margin:8px 0;
+  text-shadow:0 0 12px #b58a38;
+}
+
+.subtitle {
+  color:var(--gold);
+  letter-spacing:3px;
+  font-size:12px;
+}
+
+.panel {
+  border:1px solid var(--gold);
+  border-radius:16px;
+  padding:18px;
+  margin:14px 0;
+  background:linear-gradient(135deg,#23190d,#0b0a08);
+  box-shadow:inset 0 0 0 2px #453010;
+}
+
+label {
+  display:block;
+  margin:12px 0 6px;
+  color:var(--gold);
+  font-size:13px;
+}
+
+input {
+  width:100%;
+  padding:14px;
+  border:1px solid #b38a42;
+  border-radius:10px;
+  background:#100d08;
+  color:white;
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+  font:inherit;
+}
+
+button:disabled {
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.gold-button {
+  display:inline-block;
+  background:linear-gradient(#ffedaa,#b88525);
+  border:1px solid #ffedaa;
+  border-radius:10px;
+  padding:13px 18px;
+  color:#211602;
+  font-weight:700;
+  margin:8px 5px 8px 0;
+}
+
+.outline-button {
+  background:#191309;
+  border:1px solid var(--gold);
+  border-radius:10px;
+  padding:12px 15px;
+  color:var(--gold);
+  margin:5px 5px 5px 0;
+}
+
+.notice {
+  border:1px solid #87632b;
+  border-radius:10px;
+  padding:13px;
+  background:#241b0d;
+  color:#f1dba9;
+  line-height:1.6;
+  margin:12px 0;
+  overflow-wrap:anywhere;
+}
+
+.member-name {
+  font-family:Cinzel,serif;
+  font-size:23px;
+  color:var(--light);
+}
+
+.balance {
+  font-family:Cinzel,serif;
+  font-size:43px;
+  color:var(--light);
+  margin:8px 0;
+}
+
+.detail {
+  padding:11px 0;
+  border-bottom:1px solid #5e461f;
+  overflow-wrap:anywhere;
+}
+
+.detail strong {
+  color:var(--gold);
+}
+
+.voucher {
+  padding:14px;
+  margin:10px 0;
+  border:1px solid #85652d;
+  border-radius:10px;
+  background:#17120a;
+}
+
+.voucher strong {
+  color:var(--light);
+}
+
+#reader {
+  width:100%;
+  max-width:480px;
+  margin:14px auto;
+  background:#fff;
+  color:#111;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.hidden {display:none!important}
+
+footer {
+  text-align:center;
+  color:#c9ae78;
+  font-size:11px;
+  padding:20px 0;
+  line-height:1.8;
+}
+
+@media(max-width:480px) {
+  .frame {padding:10px}
+  .panel {padding:13px}
+}
+</style>
+</head>
+
+<body>
+<main>
+<div class="frame">
+
+<header>
+  <div class="crown">♛</div>
+  <h1>GOLDEN GAMING</h1>
+  <div class="subtitle">STAFF DASHBOARD</div>
+  <p style="color:#c9ae78">DEAL · AUTHORISED STAFF ONLY</p>
+</header>
+
+<div id="status" class="notice">
+  Checking your staff access...
+</div>
+
+<section id="loginPanel" class="panel hidden">
+  <h2>Staff Sign In</h2>
+  <p>
+    Sign in using your authorised Golden Gaming
+    mobile number.
+  </p>
+
+  <label for="phone">Mobile number</label>
+  <input id="phone" type="tel"
+    autocomplete="tel"
+    placeholder="07XXXXXXXXX">
+
+  <button id="sendCode" class="gold-button">
+    Send Verification Code
+  </button>
+
+  <div id="codePanel" class="hidden">
+    <label for="otp">SMS verification code</label>
+    <input id="otp" type="text"
+      inputmode="numeric"
+      autocomplete="one-time-code"
+      placeholder="Enter code">
+
+    <button id="verifyCode" class="gold-button">
+      Verify & Sign In
+    </button>
+  </div>
+</section>
+
+<div id="staffArea" class="hidden">
+
+  <div style="text-align:right">
+    <button id="signOut" class="outline-button">
+      Sign Out
+    </button>
+  </div>
+
+  <section class="panel">
+    <h2>Membership Scanner</h2>
+    <p>
+      Scan the customer's personal Golden Gaming
+      membership QR code.
+    </p>
+
+    <button id="startScanner" class="gold-button">
+      Open Camera Scanner
+    </button>
+
+    <button id="stopScanner" class="outline-button"
+      disabled>
+      Stop Camera
+    </button>
+
+    <div id="reader" class="hidden"></div>
+
+    <div class="notice">
+      Camera scanning requires permission from
+      your browser. You can use manual lookup
+      on your MacBook instead.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Manual Membership Lookup</h2>
+
+    <label for="memberCode">
+      Membership ID or QR code
+    </label>
+
+    <input id="memberCode" type="text"
+      autocapitalize="off"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="Paste or enter membership code">
+
+    <button id="lookupBtn" class="gold-button">
+      Find Customer
+    </button>
+  </section>
+
+  <section id="memberPanel" class="panel hidden">
+    <h2>Customer Membership</h2>
+
+    <div id="memberName" class="member-name"></div>
+
+    <div class="detail">
+      <strong>Membership ID</strong>
+      <div id="memberId"></div>
+    </div>
+
+    <div class="detail">
+      <strong>Points Balance</strong>
+      <div id="memberPoints" class="balance">0</div>
+    </div>
+
+    <div class="detail">
+      <strong>Age Verified</strong>
+      <div id="ageStatus"></div>
+    </div>
+
+    <div class="detail">
+      <strong>Rewards Eligible</strong>
+      <div id="eligibilityStatus"></div>
+    </div>
+
+    <div class="detail">
+      <strong>Rewards Blocked</strong>
+      <div id="blockedStatus"></div>
+    </div>
+
+    <h3>Gaming-Machine Vouchers</h3>
+
+    <div id="voucherList"></div>
+
+    <div class="notice">
+      Voucher approval, machine issuance and
+      collection controls are not active on
+      this screen yet. Staff must not treat
+      a pending voucher as issued.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Golden Gaming – Deal
+  <p>
+    Staff access is restricted and recorded
+    through the authorised Supabase account.
+    Always verify the customer's identity and
+    eligibility before any prize processing.
+  </p>
+</footer>
+
+</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<script>
+(() => {
+  "use strict";
+
+  const SUPABASE_URL =
+    "https://ujytgyrrwqtixwlozzyr.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_JYGd9_FfX4Dyh9za_oXVUg_UcmqDioz";
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const $ = id => document.getElementById(id);
+
+  let scanner = null;
+  let scannerRunning = false;
+  let scanningResult = false;
+  let lookupBusy = false;
+  let verifiedPhone = "";
+
+  function status(message) {
+    $("status").textContent = message;
+  }
+
+  function setText(id, value) {
+    $(id).textContent = String(value ?? "");
+  }
+
+  function formatPhone(value) {
+    const cleaned = value.replace(/[^\d+]/g, "");
+
+    if (/^07\d{9}$/.test(cleaned)) {
+      return "+44" + cleaned.slice(1);
+    }
+
+    if (/^447\d{9}$/.test(cleaned)) {
+      return "+" + cleaned;
+    }
+
+    if (/^\+447\d{9}$/.test(cleaned)) {
+      return cleaned;
+    }
+
+    throw new Error(
+      "Enter a valid UK mobile number."
+    );
+  }
+
+  async function checkStaffAccess() {
+    const auth = await db.auth.getUser();
+
+    if (auth.error || !auth.data.user) {
+      $("loginPanel").classList.remove("hidden");
+      $("staffArea").classList.add("hidden");
+      status("Sign in with your authorised staff account.");
+      return;
+    }
+
+    const result = await db
+      .from("staff_accounts")
+      .select("role,venue_code,active")
+      .eq("user_id", auth.data.user.id)
+      .maybeSingle();
+
+    if (result.error) {
+      $("loginPanel").classList.add("hidden");
+      $("staffArea").classList.add("hidden");
+      status(
+        "Unable to verify staff access: " +
+        result.error.message
+      );
+      return;
+    }
+
+    const staff = result.data;
+
+    if (
+      !staff ||
+      !staff.active ||
+      staff.venue_code !== "DEAL" ||
+      !["admin","manager","staff"].includes(staff.role)
+    ) {
+      $("loginPanel").classList.add("hidden");
+      $("staffArea").classList.add("hidden");
+      status(
+        "This account does not have active " +
+        "Golden Gaming staff access."
+      );
+      return;
+    }
+
+    $("loginPanel").classList.add("hidden");
+    $("staffArea").classList.remove("hidden");
+
+    status(
+      "Staff access confirmed: " +
+      staff.role.toUpperCase() +
+      " · Golden Gaming – Deal"
+    );
+  }
+
+  async function sendCode() {
+    const button = $("sendCode");
+    button.disabled = true;
+
+    try {
+      verifiedPhone = formatPhone(
+        $("phone").value.trim()
+      );
+
+      const result = await db.auth.signInWithOtp({
+        phone: verifiedPhone,
+        options: {
+          shouldCreateUser: false
+        }
+      });
+
+      if (result.error) throw result.error;
+
+      $("codePanel").classList.remove("hidden");
+      status("Verification code sent.");
+
+    } catch (error) {
+      status(error.message);
+
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  async function verifyCode() {
+    const button = $("verifyCode");
+    button.disabled = true;
+
+    try {
+      const result = await db.auth.verifyOtp({
+        phone: verifiedPhone,
+        token: $("otp").value.trim(),
+        type: "sms"
+      });
+
+      if (result.error) throw result.error;
+
+      await checkStaffAccess();
+
+    } catch (error) {
+      status(error.message);
+
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  function yesNo(value) {
+    return value ? "YES" : "NO";
+  }
+
+  function displayVouchers(vouchers) {
+    const list = $("voucherList");
+    list.replaceChildren();
+
+    if (!Array.isArray(vouchers) || !vouchers.length) {
+      const message = document.createElement("p");
+      message.textContent =
+        "No pending or approved vouchers.";
+      list.append(message);
+      return;
+    }
+
+    vouchers.forEach(prize => {
+      const box = document.createElement("div");
+      box.className = "voucher";
+
+      const title = document.createElement("strong");
+
+      const pounds =
+        (Number(prize.value_pence) / 100)
+          .toLocaleString("en-GB", {
+            style: "currency",
+            currency: "GBP"
+          });
+
+      title.textContent =
+        pounds + " Gaming-Machine Voucher";
+
+      const state = document.createElement("p");
+      state.textContent =
+        "Status: " +
+        String(prize.status).toUpperCase();
+
+      const id = document.createElement("div");
+      id.style.fontSize = "11px";
+      id.style.overflowWrap = "anywhere";
+      id.textContent =
+        "Prize reference: " + prize.prize_id;
+
+      box.append(title, state, id);
+      list.append(box);
+    });
+  }
+
+  async function lookupMember(code) {
+    if (lookupBusy) return;
+
+    const value = String(code || "").trim();
+
+    if (!value) {
+      status("Enter a membership code first.");
+      return;
+    }
+
+    lookupBusy = true;
+    $("lookupBtn").disabled = true;
+    $("memberPanel").classList.add("hidden");
+
+    try {
+      const result = await db.rpc(
+        "staff_lookup_member",
+        { p_member_code: value }
+      );
+
+      if (result.error) throw result.error;
+
+      const member = result.data;
+
+      setText("memberName", member.name);
+      setText("memberId", member.member_id);
+
+      setText(
+        "memberPoints",
+        Number(member.points_balance || 0)
+          .toLocaleString("en-GB")
+      );
+
+      setText(
+        "ageStatus",
+        yesNo(member.age_verified)
+      );
+
+      setText(
+        "eligibilityStatus",
+        yesNo(member.rewards_eligible)
+      );
+
+      setText(
+        "blockedStatus",
+        yesNo(member.rewards_blocked)
+      );
+
+      displayVouchers(member.vouchers);
+
+      $("memberPanel").classList.remove("hidden");
+
+      status("Membership found successfully.");
+
+      $("memberPanel").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    } catch (error) {
+      status(
+        "Membership lookup failed: " +
+        error.message
+      );
+
+    } finally {
+      lookupBusy = false;
+      $("lookupBtn").disabled = false;
+    }
+  }
+
+  async function stopCamera() {
+    if (scanner && scannerRunning) {
+      try {
+        await scanner.stop();
+      } catch (error) {
+        status(
+          "Unable to stop camera: " +
+          error.message
+        );
+      }
+    }
+
+    scannerRunning = false;
+
+    $("reader").classList.add("hidden");
+    $("startScanner").disabled = false;
+    $("stopScanner").disabled = true;
+  }
+
+  async function startCamera() {
+    if (scannerRunning) return;
+
+    if (typeof Html5Qrcode === "undefined") {
+      status(
+        "QR scanner library could not load. " +
+        "Use manual membership lookup."
+      );
+      return;
+    }
+
+    $("reader").classList.remove("hidden");
+    $("startScanner").disabled = true;
+
+    try {
+      scanner = new Html5Qrcode("reader");
+
+      await scanner.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: {
+            width: 220,
+            height: 220
+          }
+        },
+        async decodedText => {
+          if (scanningResult) return;
+
+          scanningResult = true;
+
+          $("memberCode").value = decodedText;
+
+          await stopCamera();
+          await lookupMember(decodedText);
+
+          scanningResult = false;
+        },
+        () => {}
+      );
+
+      scannerRunning = true;
+      $("stopScanner").disabled = false;
+
+      status("Camera ready. Scan a membership QR code.");
+
+    } catch (error) {
+      scannerRunning = false;
+      $("reader").classList.add("hidden");
+      $("startScanner").disabled = false;
+
+      status(
+        "Camera unavailable: " +
+        error.message +
+        ". You can still use manual lookup."
+      );
+    }
+  }
+
+  $("sendCode").onclick = sendCode;
+  $("verifyCode").onclick = verifyCode;
+
+  $("lookupBtn").onclick = () => {
+    lookupMember($("memberCode").value);
+  };
+
+  $("memberCode").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      lookupMember($("memberCode").value);
+    }
+  });
+
+  $("startScanner").onclick = startCamera;
+  $("stopScanner").onclick = stopCamera;
+
+  $("signOut").onclick = async () => {
+    await stopCamera();
+    await db.auth.signOut();
+    window.location.reload();
+  };
+
+  checkStaffAccess().catch(error => {
+    status(
+      "Unable to load staff dashboard: " +
+      error.message
+    );
+  });
+
+})();
+</script>
+</body>
+</html>
